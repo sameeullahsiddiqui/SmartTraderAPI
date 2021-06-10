@@ -252,7 +252,7 @@ namespace SmartTrader.API.Controllers
             var body = close - open;
             var lowerWick = open - low;
 
-            if (upperWick < body && upperWick < lowerWick && 3 * body < lowerWick)
+            if (upperWick < lowerWick && 3 * body < lowerWick)
                 currentStockPrice.Reason = "Hammer";
             if (currentStockPrice.Reason == "Hammer" && currentStockPrice.DelRatio >= 2)
             {
