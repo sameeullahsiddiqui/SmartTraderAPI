@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartTrader.Infrastructure.EFStructures;
 
 namespace SmartTrader.Infrastructure.Migrations
 {
     [DbContext(typeof(SmartTraderContext))]
-    partial class SmartTraderContextModelSnapshot : ModelSnapshot
+    [Migration("20210611022333_day0")]
+    partial class day0
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

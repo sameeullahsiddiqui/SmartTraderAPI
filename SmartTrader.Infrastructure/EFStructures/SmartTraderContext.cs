@@ -7,7 +7,7 @@ namespace SmartTrader.Infrastructure.EFStructures
     public class SmartTraderContext : DbContext, ISmartTraderContext
     {
 
-        public DbSet<SectorView> SectorViews { get; set; }
+        public DbSet<SectorAnalysis> SectorAnalysis { get; set; }
         public DbSet<SectorStockView> SectorStockViews { get; set; }
         public DbSet<IndustryView> IndustryViews { get; set; }
         public DbSet<Delivery> deliverys { get; set; }
@@ -20,6 +20,8 @@ namespace SmartTrader.Infrastructure.EFStructures
         public DbSet<BackgroundJob> BackgroundJobs { get; set; }
         public DbSet<FileCategory> FileCategories { get; set; }
 
+        public DbSet<SuperstarPortfolio> SuperstarPortfolios { get; set; }
+
         public SmartTraderContext(DbContextOptions<SmartTraderContext> options) : base(options)
         {
 
@@ -29,7 +31,17 @@ namespace SmartTrader.Infrastructure.EFStructures
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<SectorView>().ToView("SectorView").HasNoKey();
+            builder.Entity<SectorAnalysis>(e =>
+            {
+                e.ToTable("SectorAnalysis");
+                e.Property(x => x.Day0Color).HasColumnType("nVarchar(10)");
+                e.Property(x => x.Day1Color).HasColumnType("nVarchar(10)");
+                e.Property(x => x.Day2Color).HasColumnType("nVarchar(10)");
+                e.Property(x => x.Day3Color).HasColumnType("nVarchar(10)");
+                e.Property(x => x.Day4Color).HasColumnType("nVarchar(10)");
+                e.Property(x => x.Day5Color).HasColumnType("nVarchar(10)");
+                e.Property(c => c.Sector).HasColumnType("nVarchar(100)").HasMaxLength(100);
+            });
 
             builder.Entity<SectorStockView>(e =>
             {
@@ -60,6 +72,15 @@ namespace SmartTrader.Infrastructure.EFStructures
             });
 
 
+            builder.Entity<SuperstarPortfolio>(e =>
+            {
+                e.ToTable("SuperstarPortfolio");
+                e.Property(x => x.Symbol).HasColumnType("Varchar(500)");
+                e.Property(x => x.InvestorName).HasColumnType("Varchar(500)");
+                e.Property(x => x.ReasonToWatch).HasColumnType("Varchar(1000)");
+                e.Property(x => x.Status).HasColumnType("Varchar(100)");
+            });
+
             builder.Entity<EarningReport>(e =>
             {
                 e.ToTable("AppEarningReports");
@@ -82,8 +103,6 @@ namespace SmartTrader.Infrastructure.EFStructures
                 e.Property(x => x.BuyComment).HasColumnType("nVarchar(500)");
                 e.Property(x => x.SellComment).HasColumnType("nVarchar(500)");
                 e.Property(x => x.Status).HasColumnType("nVarchar(100)");
-                e.Property(x => x.TradeBuyDay).HasColumnType("nVarchar(100)");
-                e.Property(x => x.TradeSellDay).HasColumnType("nVarchar(100)");
                 e.Property(x => x.SymbolName).HasColumnType("nVarchar(500)");
                 e.Property(x => x.PortfolioName).HasColumnType("nVarchar(100)");
             });

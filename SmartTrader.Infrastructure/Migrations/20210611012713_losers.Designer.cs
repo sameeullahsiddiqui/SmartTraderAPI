@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartTrader.Infrastructure.EFStructures;
 
 namespace SmartTrader.Infrastructure.Migrations
 {
     [DbContext(typeof(SmartTraderContext))]
-    partial class SmartTraderContextModelSnapshot : ModelSnapshot
+    [Migration("20210611012713_losers")]
+    partial class losers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -403,37 +405,34 @@ namespace SmartTrader.Infrastructure.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Day0Color")
-                        .HasColumnType("nVarchar(10)");
-
                     b.Property<string>("Day1Color")
                         .HasColumnType("nVarchar(10)");
 
-                    b.Property<int?>("Day1Gainer")
+                    b.Property<int>("Day1Gainer")
                         .HasColumnType("int");
 
                     b.Property<string>("Day2Color")
                         .HasColumnType("nVarchar(10)");
 
-                    b.Property<int?>("Day2Gainer")
+                    b.Property<int>("Day2Gainer")
                         .HasColumnType("int");
 
                     b.Property<string>("Day3Color")
                         .HasColumnType("nVarchar(10)");
 
-                    b.Property<int?>("Day3Gainer")
+                    b.Property<int>("Day3Gainer")
                         .HasColumnType("int");
 
                     b.Property<string>("Day4Color")
                         .HasColumnType("nVarchar(10)");
 
-                    b.Property<int?>("Day4Gainer")
+                    b.Property<int>("Day4Gainer")
                         .HasColumnType("int");
 
                     b.Property<string>("Day5Color")
                         .HasColumnType("nVarchar(10)");
 
-                    b.Property<int?>("Day5Gainer")
+                    b.Property<int>("Day5Gainer")
                         .HasColumnType("int");
 
                     b.Property<double>("GainerRatio")

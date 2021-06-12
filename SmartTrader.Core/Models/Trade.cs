@@ -15,9 +15,6 @@ namespace SmartTrader.Core.Models
         public DateTime ExecutionTime { get; set; }
         public string ScriptName { get; set; }
         public string PortfolioName { get; set; }
-        public int SymbolId { get; set; }
-        public virtual Symbol Symbol { get; set; }
-        public Guid? PortfolioId { get; set; }
         public long OrderId { get; set; }
     }
 

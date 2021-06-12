@@ -13,9 +13,9 @@ namespace SmartTrader.API.Controllers
     public class SectorController : ControllerBase
     {
         private ISmartTraderContext _context;
-        private ISectorViewRepository _repository;
+        private ISectorAnalysisRepository _repository;
 
-        public SectorController(ISmartTraderContext context, ISectorViewRepository repository)
+        public SectorController(ISmartTraderContext context, ISectorAnalysisRepository repository)
         {
 
             _context = context;

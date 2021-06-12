@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartTrader.Core.Models
 {
@@ -8,14 +6,9 @@ namespace SmartTrader.Core.Models
     {
         public Guid PortfolioId { get; set; }
         public string PortfolioName { get; set; }
-        public Guid UserId { get; set; }
-        public DateTime Date { get; set; }
-        public DateTime? RecommenationDate { get; set; }
 
         public string SymbolName { get; set; }
 
-        public int SymbolId { get; set; }
-        public virtual Symbol Symbol { get; set; }
         public string TradeType { get; set; }
 
         public int Quantity { get; set; }
@@ -30,12 +23,8 @@ namespace SmartTrader.Core.Models
         public decimal? BuyHigh { get; set; }
         public decimal? BuyLow { get; set; }
         public decimal? BuyClose { get; set; }
-
         public decimal? BuyDayReturn { get; set; }
-        public decimal Buy_RSI_14 { get; set; }
-        public decimal? BuyNiftyReturn { get; set; }
         public string BuyComment { get; set; }
-
         public decimal? BuyGrade { get; set; }
         public DateTime? BuyExecutionTime { get; set; }
         public decimal AllowedRiskOnBuyDay { get; set; }
@@ -49,9 +38,7 @@ namespace SmartTrader.Core.Models
         public decimal? SellLow { get; set; }
         public decimal? SellClose { get; set; }
         public decimal? SellDayReturn { get; set; }
-        public decimal? Sell_RSI_14 { get; set; }
         public string SellComment { get; set; }
-        public decimal? SellNiftyReturn { get; set; }
         public decimal? SellGrade { get; set; }
         public DateTime? SellExecutionTime { get; set; }
 
@@ -62,8 +49,6 @@ namespace SmartTrader.Core.Models
         public decimal? HoldingProfit { get; set; }
 
         public int TradeDays { get; set; }
-        public string TradeBuyDay { get; set; }
-        public string TradeSellDay { get; set; }
 
         public Portfolio DeepCopy()
         {

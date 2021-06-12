@@ -72,13 +72,15 @@ namespace SmartTrader.API
 
             services.AddScoped<ISmartTraderContext, SmartTraderContext>();
             services.AddScoped<IIndustryViewRepository, IndustryViewRepository>();
-            services.AddScoped<ISectorViewRepository, SectorViewRepository>();
+            services.AddScoped<ISectorAnalysisRepository, SectorAnalysisRepository>();
             services.AddScoped<ISectorStockViewRepository, SectorStockViewRepository>();
             services.AddScoped<IDeliveryRepository, DeliveryRepository>();
             services.AddScoped<IStockPriceRepository, StockPriceRepository>();
             services.AddScoped<ISymbolRepository, SymbolRepository>();
             services.AddScoped<IWatchListRepository, WatchListRepository>();
             services.AddScoped<IEarningRepository, EarningRepository>();
+            services.AddScoped<ISuperstarPortfolioRepository, SuperstarPortfolioRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
