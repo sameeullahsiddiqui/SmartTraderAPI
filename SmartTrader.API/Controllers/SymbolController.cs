@@ -31,13 +31,23 @@ namespace SmartTrader.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("search/{name}")]
-        public IActionResult Search(string name)
+        [HttpGet("search/{code}")]
+        public IActionResult Search(string code)
         {
-            var result = _repository.Find(x=>x.Code.Contains(name)).Select(x=>x.Code);
+            var result = _repository.Find(x=>x.Code.Contains(code)).Select(x=>x.Code);
             return Ok(result);
         }
 
+        [HttpGet("GetCompanyCode/{name}")]
+        public IActionResult GetCompanyCode(string name)
+        {
+            var result = _repository.Find(x => x.Name.Contains(name)).FirstOrDefault();
+
+            if (result==null)
+                return NotFound();
+
+            return Ok(result);
+        }
 
         [HttpPut("{symbolId}")]
         public IActionResult Put(int symbolId, Symbol model)

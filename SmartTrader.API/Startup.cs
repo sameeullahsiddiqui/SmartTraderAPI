@@ -78,8 +78,10 @@ namespace SmartTrader.API
             services.AddScoped<IStockPriceRepository, StockPriceRepository>();
             services.AddScoped<ISymbolRepository, SymbolRepository>();
             services.AddScoped<IWatchListRepository, WatchListRepository>();
-            services.AddScoped<IEarningRepository, EarningRepository>();
+            services.AddScoped<IEarningReportRepository, EarningReportRepository>();
             services.AddScoped<ISuperstarPortfolioRepository, SuperstarPortfolioRepository>();
+            services.AddScoped<IPortfolioRepository, PortfolioRepository>();
+            services.AddScoped<IEarningReportRepository, EarningReportRepository>();
 
         }
 

@@ -14,13 +14,13 @@ namespace SmartTrader.API.Controllers
     [ApiController]
     public class StockPriceController : ControllerBase
     {
-        private ISmartTraderContext _context;
-        private IStockPriceRepository _repository;
-        private IEarningRepository _earningRepository;
+        private readonly ISmartTraderContext _context;
+        private readonly IStockPriceRepository _repository;
+        private readonly IEarningReportRepository _earningRepository;
         private readonly ISymbolRepository _symbolRepository;
 
         public StockPriceController(ISmartTraderContext context, IStockPriceRepository repository, 
-            IEarningRepository earningRepository, 
+            IEarningReportRepository earningRepository, 
             ISymbolRepository symbolRepository)
         {
 
@@ -173,6 +173,7 @@ namespace SmartTrader.API.Controllers
             var stockPrices = _repository.Find(x => x.Date <= date && x.SymbolName == stockname).OrderBy(x => x.Date).ToList();
 
             var lowVolDays = 0;
+
             foreach (var item in stockPrices)
             {
                 item.Reason = string.Empty;

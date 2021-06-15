@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrader.Core.Inerfaces;
 
@@ -12,13 +8,11 @@ namespace SmartTrader.API.Controllers
     [ApiController]
     public class DeliveryController : ControllerBase
     {
-        private ISmartTraderContext _context;
-        private IDeliveryRepository _repository;
+        private readonly IDeliveryRepository _repository;
 
-        public DeliveryController(ISmartTraderContext context, IDeliveryRepository repository)
+        public DeliveryController(IDeliveryRepository repository)
         {
 
-            _context = context;
             _repository = repository;
 
         }

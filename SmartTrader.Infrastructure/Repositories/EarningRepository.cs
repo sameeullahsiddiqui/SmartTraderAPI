@@ -9,12 +9,18 @@ using System.Text;
 
 namespace SmartTrader.Infrastructure.Repositories
 {
-    public class EarningRepository : BaseRepository<EarningReport>, IEarningRepository
+    public class EarningReportRepository : BaseRepository<EarningReport>, IEarningReportRepository
     {
-        public EarningRepository(SmartTraderContext context) : base(context)
+        public EarningReportRepository(SmartTraderContext context) : base(context)
         { }
 
-        public IEnumerable<EarningReport> GetByName(string company, int year)
+        public IEnumerable<EarningReport> GetByDate(DateTime date)
+        {
+            var result = Find(x => x.Date == date);
+            return result;
+        }
+
+        public IEnumerable<EarningReport> GetByCompanyName(string company, int year)
         {
             var result = Find(x => x.Company == company && x.Year == year);
             return result;

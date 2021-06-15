@@ -10,7 +10,7 @@ namespace SmartTrader.Infrastructure.EFStructures
         public DbSet<SectorAnalysis> SectorAnalysis { get; set; }
         public DbSet<SectorStockView> SectorStockViews { get; set; }
         public DbSet<IndustryView> IndustryViews { get; set; }
-        public DbSet<Delivery> deliverys { get; set; }
+        public DbSet<Delivery> Deliverys { get; set; }
         public DbSet<StockPrice> StockPrices { get; set; }
         public DbSet<Symbol> Symbols { get; set; }
         public DbSet<WatchList> WatchLists { get; set; }

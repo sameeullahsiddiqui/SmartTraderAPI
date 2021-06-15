@@ -4,6 +4,7 @@ namespace SmartTrader.Core.Models
 {
     public class Portfolio
     {
+        
         public Guid PortfolioId { get; set; }
         public string PortfolioName { get; set; }
 
