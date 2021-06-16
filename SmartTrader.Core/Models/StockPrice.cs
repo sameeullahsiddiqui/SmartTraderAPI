@@ -30,5 +30,16 @@ namespace SmartTrader.Core.Models
         public string Reason { get; set; }
         public bool IsFlaged { get; set; }
         public string Tooltip { get; set; }
+
+        public decimal Q1High { get; set; }
+        public decimal Q2High { get; set; }
+        public decimal Q3High { get; set; }
+        public decimal Q4High { get; set; }
+
+        public decimal Q1Low { get; set; }
+        public decimal Q2Low { get; set; }
+        public decimal Q3Low { get; set; }
+        public decimal Q4Low { get; set; }
+
     }
 }

@@ -162,6 +162,11 @@ namespace SmartTrader.API.Controllers
             {
                 foreach (var item in portfolios)
                 {
+                    if(item.SymbolName== "AKSHARCHEM")
+                    {
+                        Console.WriteLine("Test.in");
+                    }
+
                     var tradePrices = _stockPriceRepository.Find(x => x.SymbolName == item.SymbolName && (x.Date == item.BuyDate ||
                     x.Date == item.SellDate || x.Date == lastDate)).ToList();
                     var buyPrice = tradePrices.FirstOrDefault(x => x.Date == item.BuyDate);
