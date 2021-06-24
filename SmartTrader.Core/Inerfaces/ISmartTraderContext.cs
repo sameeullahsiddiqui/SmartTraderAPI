@@ -20,7 +20,8 @@ namespace SmartTrader.Core.Inerfaces
          DbSet<Portfolio> Portfolios { get; set; }
          DbSet<BackgroundJob> BackgroundJobs { get; set; }
          DbSet<FileCategory> FileCategories { get; set; }
-         DbSet<SuperstarPortfolio> SuperstarPortfolios { get; set; }
+        DbSet<SuperstarPortfolio> SuperstarPortfolios { get; set; }
+        DbSet<ShortlistedStock> ShortlistedStocks { get; set; }
 
         int SaveChanges();
     }

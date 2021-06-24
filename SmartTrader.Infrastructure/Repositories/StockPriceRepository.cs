@@ -16,7 +16,7 @@ namespace SmartTrader.Infrastructure.Repositories
 
         public IEnumerable<StockPrice> GetByName(string stockName, DateTime date)
         {
-            var filterDate = date.AddMonths(-12).Date;
+            var filterDate = date.AddMonths(-6).Date;
             return Find(x => x.Date > filterDate && x.SymbolName == stockName).OrderBy(x=>x.Date);
         }
     }

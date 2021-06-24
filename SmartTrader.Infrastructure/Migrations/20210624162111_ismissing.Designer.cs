@@ -10,8 +10,8 @@ using SmartTrader.Infrastructure.EFStructures;
 namespace SmartTrader.Infrastructure.Migrations
 {
     [DbContext(typeof(SmartTraderContext))]
-    [Migration("20210611012713_losers")]
-    partial class losers
+    [Migration("20210624162111_ismissing")]
+    partial class ismissing
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,13 +99,34 @@ namespace SmartTrader.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("ChangeSinceReport")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Company")
                         .HasColumnType("Varchar(500)");
+
+                    b.Property<decimal>("CurrentPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("CurrentQuarter")
                         .HasColumnType("Varchar(100)");
 
                     b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("EarningDayPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("Q1Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Q2Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Q3Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Q4Date")
                         .HasColumnType("datetime2");
 
                     b.Property<double>("QoQGrossProfit_Q1")
@@ -182,6 +203,9 @@ namespace SmartTrader.Infrastructure.Migrations
 
                     b.Property<double>("YoYSales_Q4")
                         .HasColumnType("float");
+
+                    b.Property<bool>("isMissingCompany")
+                        .HasColumnType("bit");
 
                     b.HasKey("EarningReportId");
 
@@ -283,23 +307,17 @@ namespace SmartTrader.Infrastructure.Migrations
                     b.Property<decimal?>("BuyLow")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("BuyNiftyReturn")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<decimal?>("BuyOpen")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("BuyPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("Buy_RSI_14")
+                    b.Property<decimal?>("CurrentPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("CurrentProfit")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
 
                     b.Property<decimal?>("HoldingProfit")
                         .HasColumnType("decimal(18,2)");
@@ -312,9 +330,6 @@ namespace SmartTrader.Infrastructure.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("RecommenationDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<decimal?>("SellClose")
                         .HasColumnType("decimal(18,2)");
@@ -343,16 +358,10 @@ namespace SmartTrader.Infrastructure.Migrations
                     b.Property<decimal?>("SellLow")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("SellNiftyReturn")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<decimal?>("SellOpen")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("SellPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("Sell_RSI_14")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Status")
@@ -361,17 +370,11 @@ namespace SmartTrader.Infrastructure.Migrations
                     b.Property<decimal?>("StopLossPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("SymbolId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SymbolName")
                         .HasColumnType("nVarchar(500)");
 
                     b.Property<decimal?>("TargetPrice")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("TradeBuyDay")
-                        .HasColumnType("nVarchar(100)");
 
                     b.Property<int>("TradeDays")
                         .HasColumnType("int");
@@ -379,18 +382,10 @@ namespace SmartTrader.Infrastructure.Migrations
                     b.Property<decimal?>("TradeGrade")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("TradeSellDay")
-                        .HasColumnType("nVarchar(100)");
-
                     b.Property<string>("TradeType")
                         .HasColumnType("nVarchar(100)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("PortfolioId");
-
-                    b.HasIndex("SymbolId");
 
                     b.ToTable("AppPortfolios");
                 });
@@ -405,34 +400,37 @@ namespace SmartTrader.Infrastructure.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Day0Color")
+                        .HasColumnType("nVarchar(10)");
+
                     b.Property<string>("Day1Color")
                         .HasColumnType("nVarchar(10)");
 
-                    b.Property<int>("Day1Gainer")
+                    b.Property<int?>("Day1Gainer")
                         .HasColumnType("int");
 
                     b.Property<string>("Day2Color")
                         .HasColumnType("nVarchar(10)");
 
-                    b.Property<int>("Day2Gainer")
+                    b.Property<int?>("Day2Gainer")
                         .HasColumnType("int");
 
                     b.Property<string>("Day3Color")
                         .HasColumnType("nVarchar(10)");
 
-                    b.Property<int>("Day3Gainer")
+                    b.Property<int?>("Day3Gainer")
                         .HasColumnType("int");
 
                     b.Property<string>("Day4Color")
                         .HasColumnType("nVarchar(10)");
 
-                    b.Property<int>("Day4Gainer")
+                    b.Property<int?>("Day4Gainer")
                         .HasColumnType("int");
 
                     b.Property<string>("Day5Color")
                         .HasColumnType("nVarchar(10)");
 
-                    b.Property<int>("Day5Gainer")
+                    b.Property<int?>("Day5Gainer")
                         .HasColumnType("int");
 
                     b.Property<double>("GainerRatio")
@@ -503,6 +501,48 @@ namespace SmartTrader.Infrastructure.Migrations
                     b.ToView("SectorStockView");
                 });
 
+            modelBuilder.Entity("SmartTrader.Core.Models.ShortlistedStock", b =>
+                {
+                    b.Property<int>("ShortlistedStockId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("ClosedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("DelRatio")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Monthly")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Percentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("ShortlistDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("StrategyName")
+                        .HasColumnType("Varchar(500)");
+
+                    b.Property<string>("SymbolName")
+                        .HasColumnType("Varchar(500)");
+
+                    b.Property<decimal>("Weekly")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ShortlistedStockId");
+
+                    b.ToTable("ShortlistedStock");
+                });
+
             modelBuilder.Entity("SmartTrader.Core.Models.StockPrice", b =>
                 {
                     b.Property<Guid>("StockPriceId")
@@ -542,6 +582,15 @@ namespace SmartTrader.Infrastructure.Migrations
                     b.Property<decimal>("Monthly")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("Monthly_3")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Monthly_6")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Monthly_9")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("Open")
                         .HasColumnType("decimal(18,2)");
 
@@ -549,6 +598,30 @@ namespace SmartTrader.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("PrevClose")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Q1High")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Q1Low")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Q2High")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Q2Low")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Q3High")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Q3Low")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Q4High")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Q4Low")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Reason")
@@ -574,6 +647,9 @@ namespace SmartTrader.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Weekly")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Yearly")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("StockPriceId");
@@ -736,9 +812,6 @@ namespace SmartTrader.Infrastructure.Migrations
                     b.Property<long>("OrderId")
                         .HasColumnType("bigint");
 
-                    b.Property<Guid?>("PortfolioId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("PortfolioName")
                         .HasColumnType("nVarchar(100)");
 
@@ -751,9 +824,6 @@ namespace SmartTrader.Infrastructure.Migrations
                     b.Property<string>("ScriptName")
                         .HasColumnType("nVarchar(500)");
 
-                    b.Property<int>("SymbolId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("TradeDate")
                         .HasColumnType("datetime2");
 
@@ -761,8 +831,6 @@ namespace SmartTrader.Infrastructure.Migrations
                         .HasColumnType("nVarchar(100)");
 
                     b.HasKey("TradeId");
-
-                    b.HasIndex("SymbolId");
 
                     b.ToTable("AppTrades");
                 });
@@ -809,32 +877,10 @@ namespace SmartTrader.Infrastructure.Migrations
                     b.ToTable("WatchList");
                 });
 
-            modelBuilder.Entity("SmartTrader.Core.Models.Portfolio", b =>
-                {
-                    b.HasOne("SmartTrader.Core.Models.Symbol", "Symbol")
-                        .WithMany()
-                        .HasForeignKey("SymbolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Symbol");
-                });
-
             modelBuilder.Entity("SmartTrader.Core.Models.StockPrice", b =>
                 {
                     b.HasOne("SmartTrader.Core.Models.Symbol", "Symbol")
                         .WithMany("StockPrices")
-                        .HasForeignKey("SymbolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Symbol");
-                });
-
-            modelBuilder.Entity("SmartTrader.Core.Models.Trade", b =>
-                {
-                    b.HasOne("SmartTrader.Core.Models.Symbol", "Symbol")
-                        .WithMany()
                         .HasForeignKey("SymbolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

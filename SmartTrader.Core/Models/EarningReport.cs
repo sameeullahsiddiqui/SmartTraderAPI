@@ -36,5 +36,13 @@ namespace SmartTrader.Core.Models
         public string Company { get; set; }
         public int Year { get; set; }
         public string CurrentQuarter { get; set; }
+        public decimal EarningDayPrice { get; set; }
+        public decimal CurrentPrice { get; set; }
+        public decimal ChangeSinceReport { get; set; }
+        public DateTime? Q1Date { get; set; }
+        public DateTime? Q2Date { get; set; }
+        public DateTime? Q3Date { get; set; }
+        public DateTime? Q4Date { get; set; }
+        public bool isMissingCompany { get; set; }
     }
 }

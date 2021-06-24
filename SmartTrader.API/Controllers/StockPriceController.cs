@@ -174,28 +174,71 @@ namespace SmartTrader.API.Controllers
 
             var lowVolDays = 0;
 
+            var previousPrice = stockPrices.Last();
             foreach (var item in stockPrices)
             {
-                item.Reason = string.Empty;
+                if (!string.IsNullOrEmpty(item.Reason) && item.Reason != "S" && item.Reason != "B" && !item.Reason.Contains("E("))
+                {
+                    item.Reason = string.Empty;
+                }
 
                 if (item.Date == date)
                 {
                     Console.WriteLine("Current Date");
                 }
 
-                CheckIfLast40DaysHighBroken(stockPrices, item);
-
-                if (string.IsNullOrEmpty(item.Reason))
-                    SetCandleStickPattern(stockPrices, item);
-
                 if (string.IsNullOrEmpty(item.Reason))
                     lowVolDays = CheckIfVolumeSpickAfter4Days(lowVolDays, item);
+
+                CheckNearLow(previousPrice, item);
+
+
+                //CheckIfLast40DaysHighBroken(stockPrices, item);
+
+                //if (string.IsNullOrEmpty(item.Reason))
+                //    SetCandleStickPattern(stockPrices, item);
+
+                previousPrice = item;
 
             }
 
             _repository.SaveChanges();
 
             return Ok();
+        }
+
+        private static void CheckNearLow(StockPrice previousPrice, StockPrice item)
+        {
+            var nearPrice = item.Low - (item.Low * 2 / 100);
+
+            if (item.Q1Low > 0 && nearPrice < item.Q1Low && item.Low > item.Q1Low && item.Weekly < -1)
+            {
+                previousPrice.Reason = !string.IsNullOrEmpty(previousPrice.Reason) && previousPrice.Reason != "S"  && previousPrice.Reason != "B" && !previousPrice.Reason.Contains("E(") ? "" : previousPrice.Reason;
+                item.Reason = string.IsNullOrEmpty(item.Reason) ? "Near Q1Low" : $"{ item.Reason},Near Q1Low";
+            }
+
+            if (item.Q2Low > 0 && nearPrice < item.Q2Low && item.Low > item.Q2Low && item.Weekly < -1)
+            {
+                previousPrice.Reason = !string.IsNullOrEmpty(previousPrice.Reason) && previousPrice.Reason != "S" && previousPrice.Reason != "B" && !previousPrice.Reason.Contains("E(") ? "" : previousPrice.Reason;
+                item.Reason = string.IsNullOrEmpty(item.Reason) ? "Near Q2Low" : $"{ item.Reason},Near Q2Low";
+            }
+
+            if (item.Q3Low > 0 && nearPrice < item.Q3Low && item.Low > item.Q3Low && item.Weekly < -1)
+            {
+                previousPrice.Reason = !string.IsNullOrEmpty(previousPrice.Reason) && previousPrice.Reason != "S" && previousPrice.Reason != "B" && !previousPrice.Reason.Contains("E(") ? "" : previousPrice.Reason;
+                item.Reason = string.IsNullOrEmpty(item.Reason) ? "Near Q3Low" : $"{ item.Reason},Near Q3Low";
+            }
+
+            if (item.Q4Low > 0 && nearPrice < item.Q4Low && item.Low > item.Q4Low && item.Weekly < -1)
+            {
+                previousPrice.Reason = !string.IsNullOrEmpty(previousPrice.Reason) && previousPrice.Reason != "S" && previousPrice.Reason != "B" && !previousPrice.Reason.Contains("E(") ? "" : previousPrice.Reason;
+                item.Reason = string.IsNullOrEmpty(item.Reason) ? "Near Q4Low" : $"{ item.Reason},Near Q4Low";
+            }
+
+            if (previousPrice.Close > item.Close)
+            {
+                previousPrice.Reason = !string.IsNullOrEmpty(previousPrice.Reason) && previousPrice.Reason != "S" && previousPrice.Reason != "B" && !previousPrice.Reason.Contains("E(") ? "" : previousPrice.Reason;
+            }
         }
 
         [HttpGet("BuildPortfolio")]

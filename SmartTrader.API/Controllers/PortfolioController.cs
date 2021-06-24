@@ -162,16 +162,18 @@ namespace SmartTrader.API.Controllers
             {
                 foreach (var item in portfolios)
                 {
-                    if(item.SymbolName== "AKSHARCHEM")
+                    if(item.SymbolName== "REPL")
                     {
                         Console.WriteLine("Test.in");
                     }
 
-                    var tradePrices = _stockPriceRepository.Find(x => x.SymbolName == item.SymbolName && (x.Date == item.BuyDate ||
-                    x.Date == item.SellDate || x.Date == lastDate)).ToList();
-                    var buyPrice = tradePrices.FirstOrDefault(x => x.Date == item.BuyDate);
-                    var sellPrice = tradePrices.FirstOrDefault(x => x.Date == item.SellDate);
-                    var currentPrice = tradePrices.FirstOrDefault(x => x.Date == lastDate);
+                    var tradePrices = _stockPriceRepository.Find(x => x.SymbolName == item.SymbolName && (x.Date == item.BuyDate.Value.Date ||
+                    x.Date == item.SellDate.Value.Date || x.Date == lastDate.Date)).ToList();
+                    var buyPrice = tradePrices.FirstOrDefault(x => x.Date == item.BuyDate.Value.Date);
+                    var sellPrice = tradePrices.FirstOrDefault(x => x.Date == item.SellDate.Value.Date);
+                    var currentPrice = tradePrices.FirstOrDefault(x => x.Date == lastDate.Date);
+                    if (currentPrice == null)
+                        continue;
 
                     if (buyPrice != null)
                     {
@@ -185,6 +187,8 @@ namespace SmartTrader.API.Controllers
                         item.CurrentProfit = currentPrice != null ? ((currentPrice.Close - item.BuyPrice) * item.Quantity) : item.CurrentProfit;
 
                         item.HoldingProfit = item.SellPrice == null ? item.CurrentProfit : ((item.SellPrice - item.BuyPrice) * item.Quantity);
+
+                        item.CurrentPrice = currentPrice.Close;
                     }
 
                     if (sellPrice != null)
@@ -239,7 +243,7 @@ namespace SmartTrader.API.Controllers
                     item.ProfitPercent = ((current.Close - item.BuyPrice) / item.BuyPrice * 100);
 
                     item.TradeDays = (int)(lastDate - item.BuyDate.GetValueOrDefault()).TotalDays;
-                    //item.TradeDays = (int)(item.SellDate.GetValueOrDefault() - item.BuyDate.GetValueOrDefault()).TotalDays;
+                    item.CurrentPrice = current.Close;
                 }
             }
         }

@@ -16,7 +16,7 @@ namespace SmartTrader.Infrastructure.Repositories
 
         public IEnumerable<EarningReport> GetByDate(DateTime date)
         {
-            var result = Find(x => x.Date == date);
+            var result = Find(x => x.Date.Date == date);
             return result;
         }
 

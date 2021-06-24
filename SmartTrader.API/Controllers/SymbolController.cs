@@ -34,14 +34,14 @@ namespace SmartTrader.API.Controllers
         [HttpGet("search/{code}")]
         public IActionResult Search(string code)
         {
-            var result = _repository.Find(x=>x.Code.Contains(code)).Select(x=>x.Code);
+            var result = _repository.Find(x=>x.Code == code).Select(x=>x.Code);
             return Ok(result);
         }
 
         [HttpGet("GetCompanyCode/{name}")]
         public IActionResult GetCompanyCode(string name)
         {
-            var result = _repository.Find(x => x.Name.Contains(name)).FirstOrDefault();
+            var result = _repository.Find(x => x.Name == name).FirstOrDefault();
 
             if (result==null)
                 return NotFound();

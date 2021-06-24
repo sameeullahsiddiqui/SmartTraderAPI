@@ -27,6 +27,10 @@ namespace SmartTrader.Core.Models
         public decimal DelRatio { get; set; }
         public decimal Monthly { get; set; }
         public decimal Weekly { get; set; }
+        public decimal Monthly_3 { get; set; }
+        public decimal Monthly_6 { get; set; }
+        public decimal Monthly_9 { get; set; }
+        public decimal Yearly { get; set; }
         public string Reason { get; set; }
         public bool IsFlaged { get; set; }
         public string Tooltip { get; set; }

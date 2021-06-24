@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using SmartTrader.Core.Inerfaces;
+using SmartTrader.Core.Models;
 
 namespace SmartTrader.API.Controllers
 {
@@ -46,6 +47,25 @@ namespace SmartTrader.API.Controllers
         {
             var result = _repository.GetAll();
             return Ok(result);
+        }
+
+        [HttpPut("{earningReportId}")]
+        public IActionResult Put(int earningReportId, EarningReport model)
+        {
+            var existingEarningReport = _repository.Get(model.EarningReportId);
+
+            if (existingEarningReport != null && earningReportId == existingEarningReport.EarningReportId)
+            {
+                existingEarningReport.Date = model.Date.ToLocalTime();
+                _repository.SaveChanges();
+
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
 
 

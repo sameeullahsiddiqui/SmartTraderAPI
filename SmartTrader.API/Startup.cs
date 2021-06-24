@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using SmartTrader.Core.Helpers;
 using SmartTrader.Core.Inerfaces;
 using SmartTrader.Infrastructure.EFStructures;
@@ -31,6 +32,9 @@ namespace SmartTrader.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging(configure => configure.AddSerilog(Log.Logger))
+                    .Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Information);
+
             services.AddDbContext<SmartTraderContext>(options =>options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("SmartTrader")));
 
             // Add cors

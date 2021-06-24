@@ -22,6 +22,8 @@ namespace SmartTrader.Infrastructure.EFStructures
 
         public DbSet<SuperstarPortfolio> SuperstarPortfolios { get; set; }
 
+        public DbSet<ShortlistedStock> ShortlistedStocks { get; set; }
+
         public SmartTraderContext(DbContextOptions<SmartTraderContext> options) : base(options)
         {
 
@@ -119,6 +121,12 @@ namespace SmartTrader.Infrastructure.EFStructures
             });
 
 
+            builder.Entity<ShortlistedStock>(e =>
+            {
+                e.ToTable("ShortlistedStock");
+                e.Property(x => x.SymbolName).HasColumnType("Varchar(500)");
+                e.Property(x => x.StrategyName).HasColumnType("Varchar(500)");
+            });
         }
 
     }

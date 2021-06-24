@@ -48,6 +48,7 @@ namespace SmartTrader.Core.Models
         public decimal? CurrentProfit { get; set; }
         public decimal? ProfitPercent { get; set; }
         public decimal? HoldingProfit { get; set; }
+        public decimal? CurrentPrice { get; set; }
 
         public int TradeDays { get; set; }
 
