@@ -175,6 +175,8 @@ namespace SmartTrader.API.Controllers
                     if (currentPrice == null)
                         continue;
 
+                    item.CurrentPrice = currentPrice.Close;
+
                     if (buyPrice != null)
                     {
                         item.BuyOpen = item.BuyOpen == null ? buyPrice.Open : item.BuyOpen;
@@ -188,7 +190,7 @@ namespace SmartTrader.API.Controllers
 
                         item.HoldingProfit = item.SellPrice == null ? item.CurrentProfit : ((item.SellPrice - item.BuyPrice) * item.Quantity);
 
-                        item.CurrentPrice = currentPrice.Close;
+                        
                     }
 
                     if (sellPrice != null)
