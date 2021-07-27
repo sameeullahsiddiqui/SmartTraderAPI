@@ -19,8 +19,8 @@ namespace SmartTrader.API.Controllers
         private readonly IEarningReportRepository _earningRepository;
         private readonly ISymbolRepository _symbolRepository;
 
-        public StockPriceController(ISmartTraderContext context, IStockPriceRepository repository, 
-            IEarningReportRepository earningRepository, 
+        public StockPriceController(ISmartTraderContext context, IStockPriceRepository repository,
+            IEarningReportRepository earningRepository,
             ISymbolRepository symbolRepository)
         {
 
@@ -60,47 +60,13 @@ namespace SmartTrader.API.Controllers
                 if (stockPrice == null)
                     continue;
 
-                switch (currentReport.CurrentQuarter)
-                {
-                    case "Q1":
-                        SetTooltip(currentReport.QoQGrossProfit_Q1,
-                                     currentReport.QoQNetProfit_Q1,
-                                     currentReport.QoQSales_Q1,
-                                     currentReport.YoYGrossProfit_Q1,
-                                     currentReport.YoYNetProfit_Q1,
-                                     currentReport.YoYSales_Q1,
-                                     stockPrice);
-                        break;
-                    case "Q2":
-                        SetTooltip(currentReport.QoQGrossProfit_Q2,
-                                     currentReport.QoQNetProfit_Q2,
-                                     currentReport.QoQSales_Q2,
-                                     currentReport.YoYGrossProfit_Q2,
-                                     currentReport.YoYNetProfit_Q2,
-                                     currentReport.YoYSales_Q2,
-                                     stockPrice);
-                        break;
-                    case "Q3":
-                        SetTooltip(currentReport.QoQGrossProfit_Q3,
-                                     currentReport.QoQNetProfit_Q3,
-                                     currentReport.QoQSales_Q3,
-                                     currentReport.YoYGrossProfit_Q3,
-                                     currentReport.YoYNetProfit_Q3,
-                                     currentReport.YoYSales_Q3,
-                                     stockPrice);
-                        break;
-                    case "Q4":
-                        SetTooltip(currentReport.QoQGrossProfit_Q4,
-                                     currentReport.QoQNetProfit_Q4,
-                                     currentReport.QoQSales_Q4,
-                                     currentReport.YoYGrossProfit_Q4,
-                                     currentReport.YoYNetProfit_Q4,
-                                     currentReport.YoYSales_Q4,
-                                     stockPrice);
-                        break;
-                    default:
-                        break;
-                }
+                SetTooltip(currentReport.QoQGrossProfit_Q1,
+             currentReport.QoQNetProfit_Q1,
+             currentReport.QoQSales_Q1,
+             currentReport.YoYGrossProfit_Q1,
+             currentReport.YoYNetProfit_Q1,
+             currentReport.YoYSales_Q1,
+             stockPrice);
 
             }
             _repository.SaveChanges();
@@ -116,7 +82,7 @@ namespace SmartTrader.API.Controllers
                 var allStockPrices = _repository.Find(x => x.SymbolName == stockname).OrderBy(x => x.Date).ToList();
                 var splitDate = Utilities.PreviousWorkDay(date);
                 var currentPrice = allStockPrices.FirstOrDefault(x => x.Date == splitDate);
-                if(currentPrice.Reason == "S" || currentPrice.Reason == "B")
+                if (currentPrice.Reason == "S" || currentPrice.Reason == "B")
                 {
                     return NotFound();
                 }
@@ -134,7 +100,7 @@ namespace SmartTrader.API.Controllers
                     }
                     else if (operationType == "Bonus")
                     {
-                        item.Open *= (oldFaceValue/ (decimal)(oldFaceValue + newFaceValue));
+                        item.Open *= (oldFaceValue / (decimal)(oldFaceValue + newFaceValue));
                         item.High *= (oldFaceValue / (decimal)(oldFaceValue + newFaceValue));
                         item.Low *= (oldFaceValue / (decimal)(oldFaceValue + newFaceValue));
                         item.Close *= (oldFaceValue / (decimal)(oldFaceValue + newFaceValue));
@@ -143,7 +109,7 @@ namespace SmartTrader.API.Controllers
 
                 foreach (var entry in allStockPrices)
                 {
-                    var monthlyData = allStockPrices.Where(x=>x.Date <= entry.Date).Select(x => Convert.ToDecimal(x.Close)).TakeLast(22).ToArray();
+                    var monthlyData = allStockPrices.Where(x => x.Date <= entry.Date).Select(x => Convert.ToDecimal(x.Close)).TakeLast(22).ToArray();
                     if (monthlyData.Length >= 22)
                     {
                         entry.Monthly = Utilities.CalculateChange((decimal)monthlyData.FirstOrDefault(), (decimal)monthlyData.LastOrDefault());
@@ -156,8 +122,8 @@ namespace SmartTrader.API.Controllers
                     }
                 }
 
-                
-                currentPrice.Reason = operationType == "Split"? "S" : "B";
+
+                currentPrice.Reason = operationType == "Split" ? "S" : "B";
                 currentPrice.Tooltip = $"{operationType}({oldFaceValue}:{newFaceValue})";
 
                 _repository.SaveChanges();
@@ -213,7 +179,7 @@ namespace SmartTrader.API.Controllers
 
             if (item.Q1Low > 0 && nearPrice < item.Q1Low && item.Low > item.Q1Low && item.Weekly < -1)
             {
-                previousPrice.Reason = !string.IsNullOrEmpty(previousPrice.Reason) && previousPrice.Reason != "S"  && previousPrice.Reason != "B" && !previousPrice.Reason.Contains("E(") ? "" : previousPrice.Reason;
+                previousPrice.Reason = !string.IsNullOrEmpty(previousPrice.Reason) && previousPrice.Reason != "S" && previousPrice.Reason != "B" && !previousPrice.Reason.Contains("E(") ? "" : previousPrice.Reason;
                 item.Reason = string.IsNullOrEmpty(item.Reason) ? "Near Q1Low" : $"{ item.Reason},Near Q1Low";
             }
 
@@ -334,10 +300,10 @@ namespace SmartTrader.API.Controllers
                 }
             }
 
-            var last4DaysList = stockPrices.Where(x => x.Date < item.Date).TakeLast(4).OrderBy(x=>x.Date).ToList();
+            var last4DaysList = stockPrices.Where(x => x.Date < item.Date).TakeLast(4).OrderBy(x => x.Date).ToList();
             var last4DaysDelivery = last4DaysList.Select(x => x.DeliveryQty).ToArray();
 
-            if(last4DaysDelivery.Length == 4 && last4DaysDelivery[0] > last4DaysDelivery[1] &&
+            if (last4DaysDelivery.Length == 4 && last4DaysDelivery[0] > last4DaysDelivery[1] &&
                last4DaysDelivery[1] > last4DaysDelivery[2] &&
                last4DaysDelivery[2] > last4DaysDelivery[3] &&
                last4DaysDelivery[3] < item.DeliveryQty &&
@@ -417,7 +383,7 @@ namespace SmartTrader.API.Controllers
                     await UpdatePortfolio(portfolioEnteries, stockpriceEntries, portfolioName, trades, groupTrade, groupTrade.BalanceQty);
                 }
 
-                 _context.SaveChanges();
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
